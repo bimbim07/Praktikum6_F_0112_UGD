@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateStudentTable extends Migration
 {
-    /**
+     /**
      * Run the migrations.
      *
      * @return void

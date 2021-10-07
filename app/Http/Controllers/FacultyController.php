@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Faculty;
-
+use App\Models\Faculty;
+use Mail;
+use App\Mail\FacultyMail;
 class FacultyController extends Controller
 {
     /**
@@ -15,9 +16,11 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        $faculties = Faculty::orderBy('id', 'ASC') ->get();
+        ///Mengambil data faculty dan mengurutkannya dari kecil ke besar berdasarkan id
+        $faculties = Faculty::orderBy('id', 'ASC')->get();
 
-        return view('facurtyCRUD.index', comapct('faculties'));
+        /// Mengirimkan variabel $faculties ke halaman views facultyCRUD/index.blade.php
+        return view('facultyCRUD.index',compact('faculties'));
     }
 
     /**
@@ -27,7 +30,8 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view ('facultyCRUD.create');
+        ///menampilkan halaman create
+        return view('facultyCRUD.create');
     }
 
     /**
@@ -38,14 +42,19 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate ([
+        
+        ///membuat validasi untuk nama_fakultas wajib diisi
+        $request->validate([
             'nama_fakultas' => 'required',
         ]);
 
+        /// insert setiap req dari form ke dalam database via model
+        /// jika menggunakan metode ini, maka nama field dan nama form harus sama
         Faculty::create($request->all());
 
+        ///redirect jika sukses menyimpan data
         return redirect()->route('faculties.index')
-        ->with('success', 'item created successfully.');
+            ->with('success', 'Item created successfully');
     }
 
     /**
@@ -56,9 +65,10 @@ class FacultyController extends Controller
      */
     public function show($id)
     {
+        ///cari berdasarkan id
         $faculties = Faculty::find($id);
-
-        return view('facultyCRUD.show', compact('faculties'));
+        ///menampilkan view show dengan menyertakan data faculties
+        return view('facultyCRUD.show',compact('faculties'));
     }
 
     /**
@@ -69,9 +79,10 @@ class FacultyController extends Controller
      */
     public function edit($id)
     {
+        ///cari berdasarkan id
         $faculties = Faculty::find($id);
-
-        return view('facultyCRUD.edit', compact('faculties'));
+        /// menampilkan view edit dengan menyertakan data faculties
+        return view('facultyCRUD.edit',compact('faculties'));
     }
 
     /**
@@ -83,14 +94,17 @@ class FacultyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /// membuat validasi untuk nama_fakultas wajib diisi
         $request->validate([
-            'nama_Fakultas' => 'required',
+            'nama_fakultas' => 'required',
         ]);
 
+        /// mengubah data berdasarkan request dan parameter yang dikirimkan
         Faculty::find($id)->update($request->all());
-
-        return redirect() ->route('falcuties.index')
-                        ->with('success','Item update successfully');
+        
+        /// setelah berhasil mengubah data melempar ke faculties.index
+        return redirect()->route('faculties.index')
+                        ->with('sucess','Item update successfully');
     }
 
     /**
@@ -102,9 +116,10 @@ class FacultyController extends Controller
     public function destroy($id)
     {
         Faculty::find($id)->delete();
-
+        ///melakukan hapus data berdasarkan parameter yang dikirimkan
+        /// $faculties->delete();
 
         return redirect()->route('faculties.index')
-                        ->with('success', 'Item deleted successfully');
+                        ->with('sucess','Item deleted successfully');
     }
 }

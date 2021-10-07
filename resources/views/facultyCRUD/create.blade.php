@@ -1,40 +1,40 @@
-@extends ('dashboard')
+@extends('dashboard')
 
-@section ('content')
+@section('content')
 
-<div class="d-flex justify-content-between mt-5 mb-5">
-    <div>
-        <h2>Create New Faculty</h2>
+    <div class="d-flex justify-content-between mt-5 mb-5">
+        <div>
+            <h2>Create New Faculty</h2>
+        </div>
+        <div>
+            <a class="btn btn-secondary" href="{{ route('faculties.index') }}">Back</a>
+        </div>
     </div>
-    <div>
-        <a class="btn btn-secondary" href="{{ route('faculties.index') }}"> Back </a>
-    </div>
-</div>
 
-@if ($errors->any())
+    @if($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
         <ul>
-            @foreach($errors->all() as $error )
-                <li> {{ $error }}</li>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
 
-<form action="{{ route (facultie.store) }}" method="POST">
-    @csrf 
+    <form action="{{ route('faculties.store') }}" method="POST">
+        @csrf
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <strong>Faculty Name : </strong>
-                <input type="text" name="nama_fakultas" class="from-control" placeholder="Faculty Name">
+                <div class="form-group">
+                    <strong>Faculty Name:</strong>
+                    <input type="text" name="nama_fakultas" class="form-control" placeholder="Faculty Name">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-5 text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 mt-5 text-center">
-            <button type="submit" class="btn btn-primary"> Submit</button>
-        </div>
-    </div>
-
-</from>
-@endsection
+    </form>
+    @endsection
