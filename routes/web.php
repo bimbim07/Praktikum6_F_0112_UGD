@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FacultyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('faculty',FacultyController::class);
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('faculties', FacultyController::class);
