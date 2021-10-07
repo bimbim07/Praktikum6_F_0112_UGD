@@ -52,9 +52,19 @@ class FacultyController extends Controller
         /// jika menggunakan metode ini, maka nama field dan nama form harus sama
         Faculty::create($request->all());
 
-        ///redirect jika sukses menyimpan data
-        return redirect()->route('faculties.index')
-            ->with('success', 'Item created successfully');
+        try{
+            $detail = [
+                'body' =>$request->nama_fakultas,
+            ];
+            Mail::to('danielcetta5@gmail.com')->send(new FacultyMail($detail));
+            ///redirect jika sukses menyimpan data
+                return redirect()->route('faculties.index')
+                ->with('success', 'Item created successfully');
+                
+        }catch(Exception $e){
+            return redirect()->route('faculties.index')->with('success', 'Item Created Successfully but cannot send the email');
+        }
+        
     }
 
     /**

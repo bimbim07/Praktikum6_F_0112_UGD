@@ -1,135 +1,33 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Mail;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Faculty;
-use Mail;
-use App\Mail\FacultyMail;
-class FacultyController extends Controller
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class FacultyMail extends Mailable
 {
+    use Queueable, SerializesModels;
+    public $detail;
     /**
-     * Display a listing of the resource.
+     * Create a new message instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct($detail)
     {
-        ///Mengambil data faculty dan mengurutkannya dari kecil ke besar berdasarkan id
-        $faculties = Faculty::orderBy('id', 'ASC')->get();
-
-        /// Mengirimkan variabel $faculties ke halaman views facultyCRUD/index.blade.php
-        return view('facultyCRUD.index',compact('faculties'));
+        $this->detail = $detail;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Build the message.
      *
-     * @return \Illuminate\Http\Response
+     * @return $this
      */
-    public function create()
+    public function build()
     {
-        ///menampilkan halaman create
-        return view('facultyCRUD.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
-            ///membuat validasi untuk nama_fakultas wajib diisi
-            $request->validate([
-                'nama_fakultas' => 'required',
-            ]);
-
-            /// insert setiap req dari form ke dalam database via model
-            /// jika menggunakan metode ini, maka nama field dan nama form harus sama
-            Faculty::create($request->all());
-        /// Mengirimkan Email
-        
-        try{
-            $detail = [
-                'body' =>$request->nama_fakultas,
-            ];
-            Mail::to('email')->send(new FacultyMail($detail));
-            ///redirect jika sukses menyimpan data
-            return redirect()->route('faculties.index')
-            ->with('success', 'Item created successfully');
-        
-        }catch(Exception $e){
-            return redirect()->route('faculties.index')->with('success', 'Item Created Successfully but cannot send the email');
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        ///cari berdasarkan id
-        $faculties = Faculty::find($id);
-        ///menampilkan view show dengan menyertakan data faculties
-        return view('facultyCRUD.show',compact('faculties'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        ///cari berdasarkan id
-        $faculties = Faculty::find($id);
-        /// menampilkan view edit dengan menyertakan data faculties
-        return view('facultyCRUD.edit',compact('faculties'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        /// membuat validasi untuk nama_fakultas wajib diisi
-        $request->validate([
-            'nama_fakultas' => 'required',
-        ]);
-
-        /// mengubah data berdasarkan request dan parameter yang dikirimkan
-        Faculty::find($id)->update($request->all());
-        
-        /// setelah berhasil mengubah data melempar ke faculties.index
-        return redirect()->route('faculties.index')
-                        ->with('sucess','Item update successfully');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Faculty::find($id)->delete();
-        ///melakukan hapus data berdasarkan parameter yang dikirimkan
-        /// $faculties->delete();
-
-        return redirect()->route('faculties.index')
-                        ->with('sucess','Item deleted successfully');
+        return $this->subject('190710112')->view('mail');
     }
 }
