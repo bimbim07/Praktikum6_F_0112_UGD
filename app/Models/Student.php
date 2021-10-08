@@ -11,9 +11,13 @@ class Student extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama',
+        'id',
+        'timestamps',
+        'nama_depan',
+        'dana_belakang',
+        'email',
+        'no_telp',
         'tempat_lahir',
-        'tanggal_lahir',
-        'alamat'
+        'tanggal_lahir'
     ];
 }
