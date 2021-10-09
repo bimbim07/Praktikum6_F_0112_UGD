@@ -7,6 +7,7 @@
             <h2>Student CRUD</h2>
         </div>
         <div>
+            <a class="btn btn-success" href="{{ route('students.create') }}">Send Mail</a>
             <a class="btn btn-success" href="{{ route('students.create') }}">Create a New Student</a>
         </div>
     </div>
