@@ -23,15 +23,15 @@
             <th>Student</th>
             <th width="280px" class="text-center">Action</th>
         </tr>
-        @if(count($faculties))
-        @foreach($faculties as $faculty)
+        @if(count($students))
+        @foreach($students as $student)
         <tr>
-            <td class="text-center">{{ $faculty->id }}</td>
+            <td class="text-center">{{ $student->id }}</td>
             <td>{{ $student->nama_depan }}</td>
             <td class="text-center">
                 <form action="{{ route('students.destroy',$student->id) }}" method="POST">
-                    <a class="btn btn-info btn-sm" href="{{ route('students.show',$faculty->id) }}">Show</a>
-                    <a class="btn btn-primary btn-sm" href="{{ route('students.edit',$faculty->id) }}">Edit</a>
+                    <a class="btn btn-info btn-sm" href="{{ route('students.show',$student->id) }}">Show</a>
+                    <a class="btn btn-primary btn-sm" href="{{ route('students.edit',$student->id) }}">Edit</a>
 
                     @csrf
                     @method('DELETE')

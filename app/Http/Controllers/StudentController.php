@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
+use App\Models\Student;
+use Mail;
+use App\Mail\FacultyMail;
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response-
      */
     public function index()
     {
         
-        $students = Student::orderBy('id', 'ASC')->get();
+        $students = Student::orderBy('id')->get();
 
         
         return view('studentCRUD.index',compact('students'));
