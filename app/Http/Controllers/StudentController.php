@@ -6,21 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Mail;
-use App\Mail\FacultyMail;
+use App\Mail\StudentMail;
+
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response-
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        
-        $students = Student::orderBy('id')->get();
+        $student = Student::orderBy('id', 'DESC')->get();
 
-        
-        return view('studentCRUD.index',compact('students'));
+        return view('studentCRUD.index',compact('student'));
     }
 
     /**
@@ -30,7 +29,6 @@ class StudentController extends Controller
      */
     public function create()
     {
-        ///menampilkan halaman create
         return view('studentCRUD.create');
     }
 
@@ -42,29 +40,19 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
         $request->validate([
-            'nama_depan' => 'required',
+            'nama_depan' => 'required|max:15',
+            'nama_belakang' => 'required|max:15',
+            'email' => 'required|email|unique:users',
+            'no_telp' => 'required|numeric|digits_between:10,13',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required|date',
         ]);
 
-        /// insert setiap req dari form ke dalam database via model
-        /// jika menggunakan metode ini, maka nama field dan nama form harus sama
         Student::create($request->all());
 
-        try{
-            $detail = [
-                'body' =>$request->nama_fakultas,
-            ];
-            Mail::to('danielcetta5@gmail.com')->send(new FacultyMail($detail));
-            ///redirect jika sukses menyimpan data
-                return redirect()->route('students.index')
-                ->with('success', 'Item created successfully');
-                
-        }catch(Exception $e){
-            return redirect()->route('students.index')->with('success', 'Item Created Successfully but cannot send the email');
-        }
-        
+        return redirect()->route('student.index')
+            ->with('success','Item created successfully.');
     }
 
     /**
@@ -75,10 +63,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        ///cari berdasarkan id
-        $students = Student::find($id);
-        
-        return view('studentCRUD.show',compact('students'));
+        $student = Student::find($id);
+        return view('studentCRUD.show',compact('student'));
     }
 
     /**
@@ -89,10 +75,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        ///cari berdasarkan id
-        $students = Student::find($id);
-        
-        return view('studentCRUD.edit',compact('students'));
+        $student = Student::find($id);
+        return view('studentCRUD.edit',compact('student'));
     }
 
     /**
@@ -104,17 +88,19 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /// membuat validasi untuk nama_fakultas wajib diisi
         $request->validate([
-            'nama_fakultas' => 'required',
+            'nama_depan' => 'required|max:15',
+            'nama_belakang' => 'required|max:15',
+            'email' => 'required|email',
+            'no_telp' => 'required|numeric|digits_between:10,13',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required|date',
         ]);
 
-        
         Student::find($id)->update($request->all());
-        
-        
-        return redirect()->route('studnets.index')
-                        ->with('sucess','Item update successfully');
+
+        return redirect()->route('student.index')
+                        ->with('success','Item updated successfully');
     }
 
     /**
@@ -126,9 +112,9 @@ class StudentController extends Controller
     public function destroy($id)
     {
         Student::find($id)->delete();
-        
 
-        return redirect()->route('students.index')
-                        ->with('sucess','Item deleted successfully');
+        return redirect()->route('student.index')
+                        ->with('success','Item deleted successfully');
     }
+
 }

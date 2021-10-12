@@ -9,12 +9,10 @@ class Student extends Model
 {
     protected $table = 'students';
     protected $primaryKey = 'id';
-    public $timestamps = true;
+    public $timelaps = true;
     protected $fillable = [
-        'id',
-        'timestamps',
         'nama_depan',
-        'dana_belakang',
+        'nama_belakang',
         'email',
         'no_telp',
         'tempat_lahir',

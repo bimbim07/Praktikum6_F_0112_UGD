@@ -14,40 +14,46 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Student ID:</strong>
+                <strong>Student's ID:</strong>
                 {{ $students->id }}
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name: </strong>
-                {{ $stidents->nama_depan}}
-                {{ $stidents->nama_belakang}}
+                <strong>Student's Name:</strong>
+                {{ $students->nama_depan }} 
+                {{ $students->nama_belakang }}
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Email :</strong>
+                <strong>Student's Email:</strong>
                 {{ $students->email }}
             </div>
+
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Phone Number :</strong>
+                <strong>Student's Phone Number:</strong>
                 {{ $students->no_telp }}
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Birthplace :</strong>
+                <strong>Student's Birthplace:</strong>
                 {{ $students->tempat_lahir }}
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Birthdate :</strong>
+                <strong>Student's Birth:</strong>
                 {{ $students->tanggal_lahir }}
             </div>
         </div>
+        
     </div>
-    @endsection
+@endsection
