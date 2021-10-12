@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <strong>Email : </strong>
-                    <input type="text" name="Email" class="form-control" placeholder="Email">
+                    <input type="text" name="email" class="form-control" placeholder="Email">
                 </div>
 
                 <div class="form-group">
@@ -51,7 +51,7 @@
                     <strong>Tempat Lahir : </strong>
                     <input type="text" name="tempat_lahir" class="form-control" placeholder="Birth Place">
                 </div>
-                
+
                 <div class="form-group">
                     <strong>Tanggal lahir : </strong>
                     <input type="text" name="tanggal_lahir" class="form-control" placeholder="Birth Date">

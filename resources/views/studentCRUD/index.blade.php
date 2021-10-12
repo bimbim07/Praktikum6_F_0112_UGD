@@ -7,7 +7,7 @@
             <h2>Student CRUD</h2>
         </div>
         <div>
-            <a class="btn btn-success" href="{{ route('students.create') }}">Send Mail</a>
+            <a class="btn btn-success" href="{{ url('Studentmail') }}">Send Mail</a>
             <a class="btn btn-success" href="{{ route('students.create') }}">Create a New Student</a>
         </div>
     </div>
@@ -29,7 +29,7 @@
             <th width="280px" class="text-center">Action</th>
         </tr>
 
-        @if(count($student))
+        @if(count($students))
         @foreach($students as $student)
             <tr>
                 <td class="text-center">{{ $student->id }}</td>
@@ -56,6 +56,6 @@
                 <td align="center" colspan="7">Empty Data!! Have a nice day :)</td>
             </tr>
         @endif
-        
+
     </table>
 @endsection
