@@ -28,6 +28,6 @@ class StudentMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('190710112')->view('mail');
+        return $this->subject('190710112')->view('student_mail');
     }
 }

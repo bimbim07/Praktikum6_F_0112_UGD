@@ -19,8 +19,5 @@ class MailController extends Controller
         $detail = Student::get();
         Mail::to('danielbima05@gmail.com')->send(new StudentMail($detail));
         return redirect()->route('students.index')->with('success','Email was send');
-
     }
-
-    
 }
