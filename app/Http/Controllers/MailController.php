@@ -17,7 +17,7 @@ class MailController extends Controller
     public function index()
     {
         $detail = Student::get();
-        Mail::to('danielbima05@gmail.com')->send(new StudentMail($detail));
+        Mail::to('shirohaku12@gmail.com')->send(new StudentMail($detail));
         return redirect()->route('students.index')->with('success','Email was send');
     }
 }
