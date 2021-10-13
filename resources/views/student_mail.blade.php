@@ -11,8 +11,8 @@
         <div class="d-flex justify-content-between mt-5 mb-5">
             <div>
                 <a href="http://www.uajy.ac.id/">
-                    <img src="https://t-2.tstatic.net/tribunnewswiki/foto/bank/images/lambang-universitas-atma-jaya-yogyakarta-uajy.jpg" 
-                    width="300px" 
+                    <img src="http://jogjaupdate.com/wp-content/uploads/2020/10/Logo-UAJY-2020-10-12-at-00.33.30.jpeg" 
+                    width="100px"
                     style="align:left">
                 </a>
             </div>
@@ -26,7 +26,7 @@
 
         <table style="width:400px; margin-left:auto;margin-right:auto;" border="solid">
             <tr>
-                <th width=10px style="text-align: center">No</th>
+                <th width=50px style="text-align: center">No</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
@@ -36,7 +36,7 @@
             @if(count($detail))
             @foreach($detail as $student)
                 <tr>
-                    <td width=15px style="text-align: center">{{ $student->id }}</td>
+                    <td width=20px style="text-align: center">{{ $student->id }}</td>
                     <td>{{ $student->nama_depan }} {{ $student->nama_belakang }}</td>
                     <td>{{ $student->email }}</td>
                     <td>{{ $student->no_telp }}</td>
